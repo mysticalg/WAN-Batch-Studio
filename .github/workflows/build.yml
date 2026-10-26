@@ -1,0 +1,37 @@
+name: Windows installer
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - run: python -m pip install -r requirements-build.txt
+      - name: Install FFmpeg for synthetic tests
+        run: choco install ffmpeg -y --no-progress
+      - name: Validate source
+        shell: pwsh
+        run: |
+          $env:Path += ";C:\ProgramData\chocolatey\bin"
+          python verify.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m py_compile app.py
+      - name: Build installer
+        shell: pwsh
+        run: .\scripts\build.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: WAN-Batch-Studio-Windows
+          path: release/*
+      - name: Publish tagged assets
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload ${{ github.ref_name }} release/* --skip-existing

@@ -1,0 +1,4 @@
+numpy==2.4.2
+Pillow==12.1.1
+websocket-client==1.9.0
+tzdata==2026.2
