@@ -1,4 +1,4 @@
-WAN Batch Studio 1.0.0
+WAN Batch Studio 1.0.1
 
 Documentation and Windows installer: https://mysticalg.github.io/WAN-Batch-Studio/
 Source and releases: https://github.com/mysticalg/WAN-Batch-Studio

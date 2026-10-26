@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- Replace removed FFmpeg `-vsync` option with `-fps_mode passthrough` for FFmpeg 9 compatibility.
+
 ## 1.0.0
 
 - Sequential ComfyUI image-to-video continuations, with a lossless pre-encoding final PNG for supported workflows.

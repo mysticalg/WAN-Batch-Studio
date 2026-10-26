@@ -1,4 +1,4 @@
-#define AppVersion "1.0.0"
+#define AppVersion "1.0.1"
 [Setup]
 AppId={{2F68B378-F264-4BB6-9E71-988FB1B9E9DC}
 AppName=WAN Batch Studio

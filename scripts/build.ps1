@@ -12,7 +12,7 @@ if (-not $Compiler) {
 }
 & $Compiler packaging\installer.iss
 if ($LASTEXITCODE -ne 0) { throw "Installer compilation failed" }
-$installer = Get-Item "release\WAN-Batch-Studio-Setup-1.0.0-x64.exe"
+$installer = Get-Item "release\WAN-Batch-Studio-Setup-1.0.1-x64.exe"
 $hash = (Get-FileHash -LiteralPath $installer.FullName -Algorithm SHA256).Hash.ToLower()
 [IO.File]::WriteAllText((Join-Path $installer.DirectoryName "SHA256SUMS.txt"), "$hash  $($installer.Name)`n")
 Write-Output "Installer: $($installer.FullName)"

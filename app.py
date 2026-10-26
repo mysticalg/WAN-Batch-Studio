@@ -10,7 +10,7 @@ from collections import OrderedDict
 import errno, traceback, http.client, urllib.error
 from tkinter import ttk, filedialog, messagebox
 
-VERSION = '1.0.0'
+VERSION = '1.0.1'
 # Installed releases keep data outside the application/uninstaller directory.
 ROOT = pathlib.Path(os.environ.get('WAN_BATCH_STUDIO_DATA') or (str(pathlib.Path(os.environ.get('LOCALAPPDATA',str(pathlib.Path.home()))) / 'WANBatchStudio') if getattr(sys,'frozen',False) else str(pathlib.Path(__file__).resolve().parent)))
 ROOT.mkdir(parents=True,exist_ok=True)
@@ -293,7 +293,7 @@ def describe(w):
 
 def last_frame(video, frame):
     # Decode every frame in order; update one PNG, leaving the actual final decoded frame.
-    media_run(['ffmpeg','-v','error','-xerror','-i',str(video),'-map','0:v:0','-an','-vsync','0','-update','1','-y',str(frame)])
+    media_run(['ffmpeg','-v','error','-xerror','-i',str(video),'-map','0:v:0','-an','-fps_mode','passthrough','-update','1','-y',str(frame)])
     if not frame.exists() or not frame.stat().st_size: raise RuntimeError('No decoded final frame')
 
 def probe(path):
