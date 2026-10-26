@@ -26,3 +26,4 @@
 !/.github/workflows/
 !/.github/workflows/build.yml
 !/scripts/collect_licenses.py
+!/packaging/TclTk-LICENSE.txt

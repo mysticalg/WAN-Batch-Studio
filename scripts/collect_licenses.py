@@ -13,6 +13,8 @@ for name in ('numpy','Pillow','websocket-client','tzdata','pyinstaller'):
 # CPython and Tcl/Tk are bundled by PyInstaller as well.
 import sys
 base=Path(sys.base_prefix)
-for source,relative in [(base/'LICENSE.txt','Python/LICENSE.txt'),(base/'tcl/tk8.6/license.terms','Tcl-Tk/license.terms')]:
+tk_notices=list((base/'tcl').glob('tk*/license.terms'))
+tk_license=tk_notices[0] if tk_notices else Path(__file__).resolve().parents[1]/'packaging/TclTk-LICENSE.txt'
+for source,relative in [(base/'LICENSE.txt','Python/LICENSE.txt'),(tk_license,'Tcl-Tk/license.terms')]:
     if not source.is_file(): raise RuntimeError('Missing runtime license: '+str(source))
     target=root/relative; target.parent.mkdir(parents=True,exist_ok=True); target.write_bytes(source.read_bytes())
